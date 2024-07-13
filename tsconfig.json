@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "lib": ["ES2019"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,               // Generate .d.ts files
+    "declarationDir": "./dist/types"   // Output directory for .d.ts files
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "test"]
+}

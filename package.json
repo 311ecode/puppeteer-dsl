@@ -1,0 +1,30 @@
+{
+  "name": "my-typescript-project",
+  "version": "1.0.0",
+  "main": "./src/cjs/index.js",
+  "module": "./src/mjs/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsc && tsc --module commonjs --outDir dist/cjs",
+    "test": "jest",
+    "start": "node dist/index.js"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.10",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.2",
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "@types/debug": "^4.1.12",
+    "@types/puppeteer": "^7.0.4",
+    "debug": "^4.3.5",
+    "dsl-framework": "^1.8.33"
+  }
+}
