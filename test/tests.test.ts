@@ -18,6 +18,7 @@ describe('CSS Zen Garden Tests', () => {
     const title = await puppeteerDSL().visible
       .goto('https://csszengarden.com/')
       .xs.wait(2000)
+      // @ts-ignore
       .evaluate(()=>document.title)
       ();
 
@@ -48,7 +49,9 @@ describe('CSS Zen Garden Tests', () => {
     const links = await puppeteerDSL().visible
     .goto('https://csszengarden.com/')
       .evaluate(() => {
+        // @ts-ignore
         const htmlLink = document.querySelector('a[href$="index"]');
+        // @ts-ignore
         const cssLink = document.querySelector('a[href$="style.css"]');
         return {
           htmlText: htmlLink ? htmlLink.textContent : null,
@@ -64,6 +67,7 @@ describe('CSS Zen Garden Tests', () => {
     const designCount = await puppeteerDSL().visible
       .goto('https://csszengarden.com/')
       .waitForSelector('#design-selection')
+      // @ts-ignore
       .evaluate(() => document.querySelectorAll('#design-selection li').length)
       ();
     expect(designCount).toBeGreaterThan(0);
@@ -72,6 +76,7 @@ describe('CSS Zen Garden Tests', () => {
   test('Switching designs changes the page appearance', async () => {
     const initialScreenshot = await puppeteerDSL().visible
       .screenshot('initial.png')
+      // @ts-ignore
       .evaluate(() => document.body.innerHTML)
       ();
 
@@ -79,6 +84,7 @@ describe('CSS Zen Garden Tests', () => {
       .click('#design-selection li:nth-child(2) a')
       .wait(2000)  // Wait for the new CSS to load
       .screenshot('new-design.png')
+      // @ts-ignore
       .evaluate(() => document.body.innerHTML)
       ();
 
