@@ -77,7 +77,67 @@ Chain these bad boys to create a symphony of automation:
 - `.addSize(name: string, width: number, height: number)`: Tailor-made browsing
 - `.noFail`: Keep calm and carry on
 
-### Size Specifiers: Dress Your Browser
+## 🌈 Flexibility is Our Middle Name
+
+### BYOB: Bring Your Own Browser
+
+Hey, we get it. Sometimes you want to use your own browser. Maybe it's got special powers, or maybe you just like it better. No worries! PuppeteerDSL is cool with that. Here's how you can use your own browser:
+
+```javascript
+const puppeteer = require('puppeteer');
+const puppeteerDSL = require('puppeteer-dsl');
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  await puppeteerDSL()
+    .browser(browser)  // Use your own browser
+    .goto('https://example.com')
+    .screenshot('my-custom-browser.png')
+  ();
+
+  await puppeteerDSL()
+    .page(browser)  // Use your own browser
+    .goto('https://example.com')
+    .screenshot('my-custom-browser.png')
+  (); // by default we close the page.. but not the browser
+
+    
+  await browser.close();
+})();
+```
+
+### Open or Closed: You Decide
+
+PuppeteerDSL is flexible about what happens after your script runs:
+
+- By default, if PuppeteerDSL creates a browser, it'll close it when your script is done. Tidy!
+- If you pass in your own browser, we assume you want to keep it open. We're not going to slam your browser shut without permission!
+
+But hey, you're the boss. You can override these defaults:
+
+```javascript
+// Keep the browser open, even if PuppeteerDSL created it
+puppeteerDSL()
+  .page(myCustomPage)
+  .openAfterUse // if the browser is created by PuppeteerDSL, it will be closed anyways
+  .goto('https://example.com')
+  .screenshot('staying-open.png')
+  ();
+
+// Close the browser, even if you provided it
+puppeteerDSL()
+  .browser(myCustomBrowser)
+  .closeAfterUse
+  .goto('https://example.com')
+  .screenshot('closing-time.png')
+  ();
+```
+
+Remember, with great power comes great responsibility. If you keep browsers open, make sure to close them eventually, or your computer might start to feel a bit... crowded.
+
+## Size Specifiers: Dress Your Browser
 
 By default, PuppeteerDSL uses the 'm' (medium) resolution. But you can be a size queen if you want! Just prepend these to any action for responsive testing:
 
@@ -198,22 +258,24 @@ await puppeteerDSL()
   ();
 ```
 
+## 🤖 GitHub Test Automation: Let the Robots Do the Work
+
+[... GitHub Actions section remains the same ...]
+
 ## 🎉 Wrapping Up: Go Forth and Automate!
 
 So there you have it, folks. PuppeteerDSL: making browser automation so simple, your grandma could do it (and if she does, please send us pictures).
 
 Remember, this is an alpha version, so things might break. But hey, that's part of the fun, right? Your feedback, bug reports, and wild ideas are what will make this tool great. So don't be shy - let us know what you think!
 
-Now go forth, chain those methods, mix and match sizes, and create symphonies of automation. And remember, in the world of PuppeteerDSL, the only limit is your imagination (and maybe your CPU).
+Now go forth, chain those methods, mix and match sizes, and create symphonies of automation. And remember, in the world of PuppeteerDSL, the only limit is your imagination.
 
 Happy scripting, and may all your tests pass on the first try! (Hey, we can dream, right?) 🚀🎭
 ```
 
 This updated documentation now includes:
-- Information about the default 'm' resolution and how to add more sizes
-- Explanation of how sizes work as prefixes for the next action
-- List of commands that remember the last selector used
-- More emphasis on the `.noFail` feature and its importance
-- Updated examples showcasing these features
+- A new section on using your own browser (BYOB: Bring Your Own Browser)
+- Information about the `.openAfterUse` and `.closeAfterUse` options
+- Explanations of the default behavior for closing browsers
+- Examples of how to use these features
 
-The tone remains friendly and approachable while conveying all the important information about PuppeteerDSL.
