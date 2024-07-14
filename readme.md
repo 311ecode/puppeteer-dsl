@@ -28,6 +28,7 @@ import puppeteerDSL from './puppeteerDSL';
 
   console.log(result);
 })();
+```
 
 This little script does a whole lot:
 1. 🌐 Launches a browser you can actually see (no sneaky headless stuff here)
@@ -79,6 +80,16 @@ Chain these bad boys to create a symphony of automation:
 
 ## 🌈 Flexibility is Our Middle Name
 
+First things first: we support both `require` and `import`. Use whichever floats your boat!
+
+```javascript
+// Old school cool
+const puppeteerDSL = require('puppeteer-dsl');
+
+// Or if you're feeling modern
+import puppeteerDSL from 'puppeteer-dsl';
+```
+
 ### BYOB: Bring Your Own Browser
 
 Hey, we get it. Sometimes you want to use your own browser. Maybe it's got special powers, or maybe you just like it better. No worries! PuppeteerDSL is cool with that. Here's how you can use your own browser:
@@ -95,15 +106,14 @@ const puppeteerDSL = require('puppeteer-dsl');
     .browser(browser)  // Use your own browser
     .goto('https://example.com')
     .screenshot('my-custom-browser.png')
-  ();
+    ();
 
   await puppeteerDSL()
-    .page(browser)  // Use your own browser
+    .page(page)  // Use your own page
     .goto('https://example.com')
-    .screenshot('my-custom-browser.png')
-  (); // by default we close the page.. but not the browser
+    .screenshot('my-custom-page.png')
+    (); // By default, we close the page but not the browser
 
-    
   await browser.close();
 })();
 ```
@@ -118,13 +128,15 @@ PuppeteerDSL is flexible about what happens after your script runs:
 But hey, you're the boss. You can override these defaults:
 
 ```javascript
-// Keep the browser open, even if PuppeteerDSL created it
+// Keep the page open, even if PuppeteerDSL created it
 puppeteerDSL()
   .page(myCustomPage)
-  .openAfterUse // if the browser is created by PuppeteerDSL, it will be closed anyways
+  .openAfterUse
   .goto('https://example.com')
   .screenshot('staying-open.png')
   ();
+// Note: If PuppeteerDSL created the browser, it will still be closed.
+// This only keeps the page open if you provided it.
 
 // Close the browser, even if you provided it
 puppeteerDSL()
@@ -272,10 +284,4 @@ Now go forth, chain those methods, mix and match sizes, and create symphonies of
 
 Happy scripting, and may all your tests pass on the first try! (Hey, we can dream, right?) 🚀🎭
 ```
-
-This updated documentation now includes:
-- A new section on using your own browser (BYOB: Bring Your Own Browser)
-- Information about the `.openAfterUse` and `.closeAfterUse` options
-- Explanations of the default behavior for closing browsers
-- Examples of how to use these features
 
