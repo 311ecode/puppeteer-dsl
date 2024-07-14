@@ -1,6 +1,6 @@
 {
   "name": "puppeteer-dsl",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "An intuitive DSL for Puppeteer, simplifying web automation and testing. Currently in alpha, subject to changes.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.mjs",
@@ -47,5 +47,9 @@
     "debug": "^4.3.5",
     "dsl-framework": "^1.8.33",
     "puppeteer": "^19.0.0"
-  }
+  },
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ]
 }
