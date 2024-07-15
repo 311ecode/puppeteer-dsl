@@ -222,7 +222,7 @@ export const puppeteerDSL = (): PuppeteerDSL => {
     } else if (config.page) {
       logMain('Using provided page');
       page = config.page;
-      shouldClosePage = true;
+      shouldClosePage = !config.openAferUse;
     } else {
       logMain('Launching new browser');
       ({ browser, page } = await createBrowserAndPage());
@@ -275,13 +275,13 @@ export const puppeteerDSL = (): PuppeteerDSL => {
       }
     }
 
-    if (shouldClosePage || !config.openAferUse) {
+    if (shouldClosePage ) {
       if (page) {
         logMain('Closing page');
         await page.close();
       }
     }
-    if (shouldCloseBrowser || !config.openAferUse) {
+    if (shouldCloseBrowser ) {
       if (browser) {
         logMain('Closing browser');
         await browser.close();

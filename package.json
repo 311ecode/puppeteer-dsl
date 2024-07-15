@@ -1,6 +1,6 @@
 {
   "name": "puppeteer-dsl",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "An intuitive DSL for Puppeteer, simplifying web automation and testing. Currently in alpha, subject to changes.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/mjs/index.js",
