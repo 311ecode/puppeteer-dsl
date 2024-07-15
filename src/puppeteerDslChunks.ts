@@ -36,13 +36,13 @@ export interface PuppeteerDSLMethods {
 }
 
 export interface PuppeteerDSL extends PuppeteerDSLMethods {
-  [key: string]: PuppeteerDSL | ((...args: any[]) => PuppeteerDSL);
+  [key: string]: PuppeteerDSL | ((...args: any[]) => PuppeteerDSL) | (()=> Promise<any>);
   
-  xs: PuppeteerDSL & PuppeteerDSLMethods;
-  s: PuppeteerDSL & PuppeteerDSLMethods;
-  m: PuppeteerDSL & PuppeteerDSLMethods;
-  l: PuppeteerDSL & PuppeteerDSLMethods;
-  xl: PuppeteerDSL & PuppeteerDSLMethods;
+  xs: PuppeteerDSL;
+  s: PuppeteerDSL;
+  m: PuppeteerDSL;
+  l: PuppeteerDSL;
+  xl: PuppeteerDSL;
 
   (): Promise<any>;
 }

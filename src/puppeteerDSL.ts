@@ -4,10 +4,12 @@ import fs from 'fs';
 import path from 'path';
 import { PuppeteerDSL, logMain, Size, logAction, logConfig, oneParameterSelectorFunctions, sizeViewports, ContentType, delay, logScreenshot, registeredCommands } from './puppeteerDslChunks';
 
+// type WhoKnowsWhatItIs =  ((...any[])=>PuppeteerDSL) | (()=>Promise<unknown>)
+
 export interface PuppeteerDSLMethods {
   goto: (url: string) => PuppeteerDSL;
   waitForSelector: (selector: string) => PuppeteerDSL;
-  click: PuppeteerDSL & ((selector?: string) => PuppeteerDSL);
+  click: PuppeteerDSL & ((selector?: string) => PuppeteerDSL)| (()=>Promise<unknown>);
   type: (selector: string, text: string) => PuppeteerDSL;
   getContent: (selector: string, type: ContentType) => PuppeteerDSL;
   wait: (ms: number) => PuppeteerDSL;
@@ -16,11 +18,11 @@ export interface PuppeteerDSLMethods {
   evaluate: (fn: (...args: any[]) => any, ...args: any[]) => PuppeteerDSL;
   browser: (browser: Browser) => PuppeteerDSL;
   page: (page: Page) => PuppeteerDSL;
-  visible: PuppeteerDSL;
+  visible: PuppeteerDSL | (()=>PuppeteerDSL) | (()=>Promise<unknown>);
   closeAfterUse: PuppeteerDSL;
-  openAfterUse: PuppeteerDSL;
+  openAfterUse: PuppeteerDSL | (()=>PuppeteerDSL) | (()=>Promise<unknown>);
   select: (selector: string, ...values: string[]) => PuppeteerDSL;
-  hover: PuppeteerDSL & ((selector?: string) => PuppeteerDSL);
+  hover: PuppeteerDSL | ((selector?: string) => PuppeteerDSL)| (()=>Promise<unknown>);
   interceptRequest: (callback: (request: Request) => void) => PuppeteerDSL;
   interceptResponse: (callback: (response: Response) => void) => PuppeteerDSL;
   sizes: (...sizes: Size[]) => PuppeteerDSL;
@@ -192,6 +194,7 @@ export const puppeteerDSL = (): PuppeteerDSL => {
       screenshotPath: d.command.get('screenshotPath')?.[0]?.[1] as unknown as string | undefined,
       sizes: d.command.get('sizes')?.[0]?.slice(1) as unknown as Size[] | undefined,
       parallelScreenExecution: d.command.has('parallelScreenExecution'),
+      openAferUse: d.command.has('openAfterUse'),
     };
 
     logConfig('Configuration:', config);
@@ -272,13 +275,13 @@ export const puppeteerDSL = (): PuppeteerDSL => {
       }
     }
 
-    if (shouldClosePage) {
+    if (shouldClosePage || !config.openAferUse) {
       if (page) {
         logMain('Closing page');
         await page.close();
       }
     }
-    if (shouldCloseBrowser) {
+    if (shouldCloseBrowser || !config.openAferUse) {
       if (browser) {
         logMain('Closing browser');
         await browser.close();
