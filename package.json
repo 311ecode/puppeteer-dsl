@@ -1,19 +1,20 @@
 {
   "name": "puppeteer-dsl",
-  "version": "0.0.4",
+  "version": "0.0.15",
   "description": "An intuitive DSL for Puppeteer, simplifying web automation and testing. Currently in alpha, subject to changes.",
   "main": "./dist/cjs/index.js",
-  "module": "./dist/mjs/index.mjs",
+  "module": "./dist/mjs/index.js",
+  "types": "./dist/mjs/puppeteerDSL.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./dist/mjs/puppeteerDSL.js",
+      "require": "./dist/cjs/puppeteerDSL.js"
     }
   },
   "scripts": {
-    "build": "tsc && tsc --module commonjs --outDir dist/cjs",
+    "build": "tsc --declaration --outDir dist/mjs && tsc --module commonjs --outDir dist/cjs",
     "test": "jest",
-    "start": "node dist/index.js"
+    "start": "node dist/cjs/index.js"
   },
   "homepage": "https://github.com/311ecode/puppeteer-dsl#readme",
   "repository": {
@@ -46,7 +47,7 @@
     "@types/puppeteer": "^7.0.4",
     "debug": "^4.3.5",
     "dsl-framework": "^1.8.33",
-    "puppeteer": "^19.0.0"
+    "puppeteer": "^22.13.0"
   },
   "files": [
     "dist/**/*",

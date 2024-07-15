@@ -2,11 +2,6 @@
 
 ## 🚨 Alpha Version Alert: Proceed with Curiosity!
 
-**Current Version: 0.0.1**
-
-Hey there, brave explorer! You've stumbled upon PuppeteerDSL in its wild, untamed alpha stage. What does this mean? Well:
-
-- The API might do backflips and change overnight.
 - Features could appear, disappear, or turn into something entirely different.
 - Bugs? Oh, you bet. Think of them as "surprise features".
 
