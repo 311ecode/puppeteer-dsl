@@ -10,7 +10,10 @@ But here's the fun part: we need YOU! Your feedback, your wild ideas, your bug r
 ## 🚀 Quick Start: Zero to Hero
 
 ```javascript
-import puppeteerDSL from './puppeteerDSL';
+
+import { puppeteerDSL } from 'puppeteer-dsl';
+// or
+const { puppeteerDSL } = require('puppeteer-dsl');
 
 (async () => {
   const result = await puppeteerDSL()
