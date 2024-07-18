@@ -12,9 +12,11 @@
     }
   },
   "scripts": {
-    "build": "tsc --declaration --outDir dist/mjs && tsc --module commonjs --outDir dist/cjs",
+    "build:mjs": "tsc --declaration --outDir dist/mjs",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "build": "npm run build:mjs && npm run build:cjs",
     "test": "jest",
-    "start": "node dist/cjs/index.js"
+    "watch": "concurrently -c green,black -n mjs,cjs --restart-after 3000 \"npm run build:mjs -- --watch\" \"npm run build:cjs -- --watch\""
   },
   "homepage": "https://github.com/311ecode/puppeteer-dsl#readme",
   "repository": {
@@ -45,6 +47,7 @@
   "dependencies": {
     "@types/debug": "^4.1.12",
     "@types/puppeteer": "^7.0.4",
+    "concurrently": "^8.2.2",
     "debug": "^4.3.5",
     "dsl-framework": "^1.8.33",
     "puppeteer": "^22.13.0"
